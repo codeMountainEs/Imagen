@@ -1,0 +1,51 @@
+# instalacion
+
+composer config --global github-oauth.github.com
+
+Modelos
+
+Una empresa tiene clientes
+los clientes tienen obras
+
+
+alguien crea un trabajo
+    lo asigna a un trabajador
+    vete a una obra
+    y realiza lo siguiente
+
+
+
+
+
+1 obra muchos trabajos
+trabajos  son de una categoria
+usuarios crean obras
+usuarios asignan obras a susuarios
+usuarios ven sus obras
+usuarios hacen trabajo subiendo fotos
+
+
+php artisan make:model Category -m
+
+php artisan make:model Empresa -m
+    php artisan make:model Cliente -m
+        php artisan make:model Obra -m
+        php artisan make:model ObraTipo -m
+
+            php artisan make:model Trabajo -m
+                    php artisan make:model TrabajoTipo -m
+
+migraciones
+modelos
+relacciones de modelos
+
+composer require filament/filament:"^3.2" -W
+php artisan filament:install --panels
+
+
+php artisan make:filament-user
+
+
+
+
+
