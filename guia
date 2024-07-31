@@ -62,8 +62,12 @@ php artisan make:factory TrabajoTipoFactory --model=TrabajoTipo
 php artisan make:factory ObraFactory --model=Obra
 
 
-Añadir roles a usuarios de laraveldaily
+## Añadir roles a usuarios de laraveldaily
 filament-registration-form-extra-fields-chose-user-role
+* migratieon añadir role
+* model añadir role
+* php artisan make:filament-page Auth/Register
+    overwrite the original register clas of filament.
 
 
 

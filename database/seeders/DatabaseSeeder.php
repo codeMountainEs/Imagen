@@ -44,8 +44,8 @@ class DatabaseSeeder extends Seeder
         ]);
         Obra::factory()->create([
             'obra_tipo_id' => ObraTipo::all()->random()->id,
-            'name' => 'VIVID',
-            'description' => 'EMPRESA CONSTRUCTORA',
+            'name' => 'Mercadona Rotulación ',
+            'description' => 'Rotulación Mercadona',
         ]);
     }
 }

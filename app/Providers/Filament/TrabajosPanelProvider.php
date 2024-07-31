@@ -25,6 +25,7 @@ class TrabajosPanelProvider extends PanelProvider
         return $panel
             ->id('trabajos')
             ->path('trabajos')
+            ->login()
             ->colors([
                 'primary' => Color::Amber,
             ])
