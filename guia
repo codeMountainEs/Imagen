@@ -45,7 +45,72 @@ php artisan filament:install --panels
 
 php artisan make:filament-user
 
+php artisan make:filament-resource Empresa --generate
 
+php artisan make:filament-resource Obra --generate
+php artisan make:filament-resource Trabajo --generate
+
+php artisan make:filament-resource ObraTipo --generate
+php artisan make:filament-resource TrabajoTipo --generate
+
+
+php artisan make:factory EmpresaFactory --model=Empresa
+
+php artisan make:factory ObraTipoFactory --model=ObraTipo
+php artisan make:factory TrabajoTipoFactory --model=TrabajoTipo
+
+php artisan make:factory ObraFactory --model=Obra
+
+
+Añadir roles a usuarios de laraveldaily
+filament-registration-form-extra-fields-chose-user-role
+
+
+
+
+
+*quitar no hace falta ...
+
+## composer require intervention/image
+config/app.php:
+
+'providers' => [
+    // Otros proveedores
+    Intervention\Image\ImageServiceProvider::class,
+],
+
+'aliases' => [
+    // Otros aliases
+    'Image' => Intervention\Image\Facades\Image::class,
+],
+
+
+Forms\Components\FileUpload::make('photo')
+                    ->image()
+                    ->required()
+                    ->reactive()
+                    ->afterStateUpdated(function ($state, callable $set) {
+                        $path = $state->store('photos');
+
+                        // Redimensionar la imagen
+                        $image = Image::make(Storage::path($path))->resize(800, null, function ($constraint) {
+                            $constraint->aspectRatio();
+                            $constraint->upsize();
+                        });
+
+                        // Guardar la imagen redimensionada
+                        $image->save();
+
+                        $set('photo', $path);
+                    }),
+                Forms\Components\Select::make('obra_id')
+                    ->relationship('obra', 'name')
+                    ->required(),
+
+
+
+
+php artisan make:filament-panel  trabajos
 
 
 

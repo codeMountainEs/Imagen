@@ -13,11 +13,8 @@ return new class extends Migration
     {
         Schema::create('obras', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('obras_id')->constrained('obras')->cascadeOnDelete();
 
-            $table->string('code')->nullable();
-
-            $table->foreignId('obra_tipos_id')->constrained('obra_tipos')->cascadeOnDelete();
+            $table->string('codigo')->nullable();
 
             $table->string('name')->nullable();
             $table->longText('description')->nullable();
@@ -31,6 +28,8 @@ return new class extends Migration
 
             $table->string('image')->nullable();
             $table->boolean('is_active')->default(true);
+
+            $table->foreignIdFor(\App\Models\ObraTipo::class)->nullable();
 
 
             $table->timestamps();
