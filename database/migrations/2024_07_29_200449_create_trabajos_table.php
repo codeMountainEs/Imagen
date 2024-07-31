@@ -14,9 +14,9 @@ return new class extends Migration
         Schema::create('trabajos', function (Blueprint $table) {
             $table->id();
 
-            $table->foreignId('obra_id')->constrained('obras')->cascadeOnDelete();
-            $table->foreignId('user_id')->constrained('users')->cascadeOnDelete();
-            $table->foreignId('trabajo_tipos_id')->constrained('trabajo_tipos')->cascadeOnDelete();
+            $table->foreignIdFor(\App\Models\TrabajoTipo::class)->nullable();
+            $table->foreignIdFor(\App\Models\User::class)->nullable();
+            $table->foreignIdFor(\App\Models\Obra::class)->nullable();
 
 
             $table->string('code')->nullable();
@@ -25,8 +25,10 @@ return new class extends Migration
             $table->longText('description')->nullable();
 
             $table->boolean('is_active')->default(true);
-            $table->json('images')->nullable();
 
+            $table->string('image')->nullable();
+
+            $table->json('images')->nullable();
             $table->timestamps();
         });
     }

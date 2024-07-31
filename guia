@@ -60,6 +60,7 @@ php artisan make:factory ObraTipoFactory --model=ObraTipo
 php artisan make:factory TrabajoTipoFactory --model=TrabajoTipo
 
 php artisan make:factory ObraFactory --model=Obra
+php artisan make:factory TrabajoFactory --model=Trabajo
 
 
 ## Añadir roles a usuarios de laraveldaily

@@ -39,28 +39,34 @@ class TrabajoResource extends Resource
                     ->required(),
 
 
-                Forms\Components\TextInput::make('trabajo_tipos_id')
+
+                Forms\Components\Select::make('trabajo_tipo_id')
                     ->required()
-                    ->numeric(),
+                    ->searchable()
+                    ->preload()
+                    ->relationship('trabajo_tipo', 'name'),
+
+
                 Forms\Components\TextInput::make('code'),
                 Forms\Components\TextInput::make('name'),
                 Forms\Components\Textarea::make('description')
                     ->columnSpanFull(),
 
 
+                Forms\Components\Section::make('Imagenes de Trabajo')->schema([
+                    Forms\Components\FileUpload::make('images')
+                        ->image()
+                        ->multiple()
+                        ->directory('trabajos')
+                        ->maxFiles(5)
+                        ->imageEditor()
+                        ->imageResizeMode('cover')
+                        ->imageCropAspectRatio('16:9')
+                        ->imageResizeTargetWidth('1280')
+                        ->imageResizeTargetHeight('720')
+                ])->columnSpan(1)
 
-                 Forms\Components\Section::make('Obra')->schema([
-                     Forms\Components\FileUpload::make('images')
-                         ->image()
-                         ->multiple()
-                         ->directory('products')
-                         ->maxFiles(5)
-                         ->imageEditor()
-                         ->imageResizeMode('cover')
-                         ->imageCropAspectRatio('16:9')
-                         ->imageResizeTargetWidth('1280')
-                         ->imageResizeTargetHeight('720')
-                 ]),
+
 
             ]);
 
@@ -71,25 +77,15 @@ class TrabajoResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('obra_id')
-                    ->numeric()
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('user_id')
-                    ->numeric()
-                    ->sortable(),
-                Tables\Columns\TextColumn::make('trabajo_tipos_id')
-                    ->numeric()
-                    ->sortable(),
+
                 Tables\Columns\TextColumn::make('code')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('name')
                     ->searchable(),
+                Tables\Columns\ImageColumn::make('image'),
+
                 Tables\Columns\IconColumn::make('is_active')
                     ->boolean(),
-                Tables\Columns\TextColumn::make('created_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('updated_at')
                     ->dateTime()
                     ->sortable()

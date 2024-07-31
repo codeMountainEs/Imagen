@@ -11,7 +11,7 @@ class Trabajo extends Model
     protected $fillable = [
         'obra_id',
         'user_id',
-        'trabajo_tipos_id',
+        'trabajo_tipo_id',
         'code',
         'name',
         'description',
@@ -19,6 +19,11 @@ class Trabajo extends Model
         'is_active',
 
     ];
+
+    public function trabajo_tipo()
+    {
+        return $this->belongsTo(TrabajoTipo::class);
+    }
 
     public function obra()
     {

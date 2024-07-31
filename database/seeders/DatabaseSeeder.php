@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Models\Empresa;
 use App\Models\Obra;
 use App\Models\ObraTipo;
+use App\Models\Trabajo;
 use App\Models\TrabajoTipo;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -47,5 +48,15 @@ class DatabaseSeeder extends Seeder
             'name' => 'Mercadona Rotulación ',
             'description' => 'Rotulación Mercadona',
         ]);
+
+        Trabajo::factory()->create([
+            'trabajo_tipo_id' => TrabajoTipo::all()->random()->id,
+            'obra_id' => Obra::all()->random()->id,
+            'name' => 'Mercadona 3 Rotulación ',
+            'description' => 'Rotulación Mercadona',
+            'images' => '["trabajos\/01J44YBNYPEDNJD2NY0ZEWPDB9.png"]',
+        ]);
+
+
     }
 }
