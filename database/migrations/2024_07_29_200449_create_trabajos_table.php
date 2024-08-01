@@ -16,7 +16,7 @@ return new class extends Migration
 
             $table->foreignIdFor(\App\Models\TrabajoTipo::class)->nullable();
             $table->foreignIdFor(\App\Models\User::class)->nullable();
-            $table->foreignIdFor(\App\Models\Obra::class)->nullable();
+            $table->foreignId('obra_id')->constrained('obras')->cascadeOnDelete();
 
 
             $table->string('code')->nullable();

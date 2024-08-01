@@ -22,7 +22,13 @@ class DatabaseSeeder extends Seeder
 
         User::factory()->create([
             'name' => 'Test User',
-            'email' => 'test@example.com',
+            'email' => 'admin@example.com',
+            'role' => 'Administrador',
+        ]);
+        User::factory()->create([
+            'name' => ' User',
+            'email' => 'user@example.com',
+            'role' => 'Usuario',
         ]);
 
         Empresa::factory()->create([

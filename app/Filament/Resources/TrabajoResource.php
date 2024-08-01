@@ -12,8 +12,6 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
-use Illuminate\Support\Facades\Storage;
-use Intervention\Image\Laravel\Facades\Image;
 
 class TrabajoResource extends Resource
 {
@@ -21,71 +19,85 @@ class TrabajoResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
+
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                Forms\Components\Section::make('Obra')->schema([
-                    Forms\Components\Select::make('obra_id')
-                        ->required()
-                        ->searchable()
-                        ->preload()
-                        ->relationship('obra', 'name')
-                ]),
 
-
-                Forms\Components\Hidden::make('user_id')
-                    ->default(auth()->user()->id)
-                    ->required(),
-
-
-
+            Forms\Components\Section::make('Datos Trabajo')->schema([
                 Forms\Components\Select::make('trabajo_tipo_id')
                     ->required()
                     ->searchable()
                     ->preload()
                     ->relationship('trabajo_tipo', 'name'),
+                Forms\Components\Hidden::make('user_id')
+                    ->default(auth()->user()->id)
+                    ->required(),
+
+                Forms\Components\Toggle::make('is_active')
+                    ->default(true)
+                    ->required(),
 
 
-                Forms\Components\TextInput::make('code'),
-                Forms\Components\TextInput::make('name'),
-                Forms\Components\Textarea::make('description')
+
+            ])->columns(2),
+
+
+
+
+             Forms\Components\Section::make('Datos Trabajo')->schema([
+
+                Forms\Components\Select::make('obra_id')
+                    ->required()
+                    ->searchable()
+                    ->preload()
+                    ->relationship('obra', 'name'),
+
+
+                Forms\Components\TextInput::make('code')->label('Código'),
+                Forms\Components\TextInput::make('name')->label('Nombre')->columnSpanFull(),
+                Forms\Components\MarkdownEditor::make('description')->label('Descripción')
                     ->columnSpanFull(),
+             ])->columns(2),
 
 
-                Forms\Components\Section::make('Imagenes de Trabajo')->schema([
+
+                Forms\Components\Section::make('Immágenes del Trabajo')->schema([
+
                     Forms\Components\FileUpload::make('images')
-                        ->image()
-                        ->multiple()
                         ->directory('trabajos')
+                        ->multiple()
                         ->maxFiles(5)
+                        ->reorderable()
                         ->imageEditor()
                         ->imageResizeMode('cover')
                         ->imageCropAspectRatio('16:9')
                         ->imageResizeTargetWidth('1280')
                         ->imageResizeTargetHeight('720')
-                ])->columnSpan(1)
+                        ->columnSpanFull()
+                    ,
 
-
+                ])->columns(1),
 
             ]);
-
-
     }
 
     public static function table(Table $table): Table
     {
         return $table
             ->columns([
-
+              Tables\Columns\TextColumn::make('obra.name')
+                    ->sortable()
+                    ->searchable(),
                 Tables\Columns\TextColumn::make('code')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('name')
                     ->searchable(),
-                Tables\Columns\ImageColumn::make('image'),
-
                 Tables\Columns\IconColumn::make('is_active')
                     ->boolean(),
+
+
                 Tables\Columns\TextColumn::make('updated_at')
                     ->dateTime()
                     ->sortable()

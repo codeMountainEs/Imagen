@@ -36,6 +36,7 @@ class ObraResource extends Resource
                         ->relationship('obra_tipo', 'name'),
 
                       Forms\Components\Toggle::make('is_active')
+                          ->default(true)
                           ->required(),
                 ])->columns(3),
                 Forms\Components\TextInput::make('name'),
@@ -51,7 +52,6 @@ class ObraResource extends Resource
                 Forms\Components\TextInput::make('zip_code'),
                 Forms\Components\FileUpload::make('image')
                     ->image()
-                    ->multiple()
                     ->directory('obras')
                     ->maxFiles(5)
                     ->imageEditor()
@@ -68,33 +68,26 @@ class ObraResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('obras_id')
-                    ->numeric()
-                    ->sortable(),
+
                 Tables\Columns\TextColumn::make('code')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('obra_tipos_id')
-                    ->numeric()
-                    ->sortable(),
+                Tables\Columns\TextColumn::make('obra_tipo.name')
+                    ->searchable()
+                    ->label('Tipo de Obra'),
                 Tables\Columns\TextColumn::make('name')
+                    ->sortable()
                     ->searchable(),
-                Tables\Columns\TextColumn::make('phone')
-                    ->searchable(),
+
                 Tables\Columns\TextColumn::make('location')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('city')
-                    ->searchable(),
+
                 Tables\Columns\TextColumn::make('state')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('zip_code')
                     ->searchable(),
-                Tables\Columns\ImageColumn::make('image'),
                 Tables\Columns\IconColumn::make('is_active')
                     ->boolean(),
-                Tables\Columns\TextColumn::make('created_at')
-                    ->dateTime()
-                    ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
+
                 Tables\Columns\TextColumn::make('updated_at')
                     ->dateTime()
                     ->sortable()

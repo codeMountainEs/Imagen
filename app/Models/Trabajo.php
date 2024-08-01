@@ -19,6 +19,7 @@ class Trabajo extends Model
         'is_active',
 
     ];
+    protected $casts = ['images' => 'array'];
 
     public function trabajo_tipo()
     {
